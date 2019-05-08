@@ -1,21 +1,31 @@
 package com.fs.springtests.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="employee")
 public class Employee {
 
 	
 	@Id
-	@GeneratedValue
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name ="empnumber")
 	private String empNumber;
+	@Column(name ="name")
 	private String name;
+	@Column(name ="address")
 	private String address;
+	@Column(name ="salary")
 	private Double salary;
+	
 	public Long getId() {
 		return id;
 	}

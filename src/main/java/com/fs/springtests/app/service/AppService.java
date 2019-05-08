@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fs.springtests.app.dao.AppDao;
 import com.fs.springtests.app.model.Employee;
+import com.fs.springtests.app.repo.EmployeeRepository;
 
  
 
@@ -15,12 +15,12 @@ import com.fs.springtests.app.model.Employee;
 public class AppService {
 
 	@Autowired
-	private AppDao appDao;
+	private EmployeeRepository employeeRepo;
 	
 	public Double getMaxSalary() {
 		
 		
-		List<Employee> emps=appDao.getEmployeeList();
+		List<Employee> emps=employeeRepo.findAll();
 		
 	Employee em=	emps.stream().max(new Comparator<Employee>() {
 
@@ -33,6 +33,26 @@ public class AppService {
 		
 	 return (em==null?0.0:em.getSalary());
 		
+	}
+
+	public List<Employee> getEmployeeList() {
+		
+		System.out.println("total count : "+employeeRepo.count());
+		return employeeRepo.findAll();
+		
+	}
+
+	public Employee createOrUpdateEmployee(Employee employee) {
+		
+		return employeeRepo.save(employee);
+	}
+
+	public Employee getEmployeById(String employeeId) {
+		return employeeRepo.getOne(Long.parseLong(employeeId));
+	}
+
+	public void deleteEmployee(String employeeId) {
+		employeeRepo.deleteById(Long.parseLong(employeeId));
 	}
 	
 	

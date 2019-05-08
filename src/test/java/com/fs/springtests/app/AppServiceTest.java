@@ -15,8 +15,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.fs.springtests.app.dao.AppDao;
 import com.fs.springtests.app.model.Employee;
+import com.fs.springtests.app.repo.EmployeeRepository;
 import com.fs.springtests.app.service.AppService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,7 +24,7 @@ import com.fs.springtests.app.service.AppService;
 public class AppServiceTest {
 
 	 @Mock
-	 private AppDao appDao;
+	 private EmployeeRepository appDao;
 
 	 @InjectMocks
 	 private AppService appService;
@@ -38,7 +38,7 @@ public class AppServiceTest {
 		emps.add(new Employee(808L, "EMP02", "YYY", "", 09886.0));
 		emps.add(new Employee(708L, "EMP03", "ZZZ", "", 10988787.0));
 		
-		Mockito.when(appDao.getEmployeeList()).thenReturn(emps);
+		Mockito.when(appDao.findAll()).thenReturn(emps);
 		
 		assertEquals(new Double(10988787.0), appService.getMaxSalary());
 	}
